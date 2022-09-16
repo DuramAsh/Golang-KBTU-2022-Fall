@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-type DS interface {
+type LIFO interface {
 	peek() (int, error)
 	pop() error
 	isEmpty() bool
@@ -43,31 +43,6 @@ func (is *IncrementStack) increment(steps int) {
 	}
 }
 
-func main() {
-	var st Incrementer = &IncrementStack{
-		stack: &Stack{},
-	}
-	st.getStack().push(1)
-	st.getStack().push(2)
-	st.getStack().push(3)
-	st.getStack().push(4)
-	st.getStack().push(5)
-	st.increment(2)
-	for i := 0; i < 6; i++ {
-		val, err := st.getStack().peek()
-		if err != nil {
-			fmt.Println(err.Error())
-		} else {
-			fmt.Println(val)
-		}
-		err = st.getStack().pop()
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-	}
-	st.getStack().print()
-}
-
 func (s *Stack) push(val int) {
 	newNode := &Node{Value: val}
 	newNode.Next = s.top
@@ -104,4 +79,29 @@ func (s *Stack) print() {
 		temp = temp.Next
 	}
 	fmt.Println()
+}
+
+func main() {
+	var st Incrementer = &IncrementStack{
+		stack: &Stack{},
+	}
+	st.getStack().push(1)
+	st.getStack().push(2)
+	st.getStack().push(3)
+	st.getStack().push(4)
+	st.getStack().push(5)
+	st.increment(2)
+	for i := 0; i < 6; i++ {
+		val, err := st.getStack().peek()
+		if err != nil {
+			fmt.Println(err.Error())
+		} else {
+			fmt.Println(val)
+		}
+		err = st.getStack().pop()
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+	}
+	st.getStack().print()
 }
